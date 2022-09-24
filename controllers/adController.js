@@ -21,8 +21,9 @@ exports.postAd = (req, res, next) => {
 }
 
 exports.getAllAds = (req, res, next) => {
-    db.execute('SELECT * from ads').then(([rows, fieldData]) => {
-        res.status(200).json(rows);
-    })
+    // db.execute('SELECT * from ads').then(([rows, fieldData]) => {
+    //     res.status(200).json(rows);
+    // })
+    res.send("This is a testing page");
     
 }

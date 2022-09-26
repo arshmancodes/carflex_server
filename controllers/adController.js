@@ -21,9 +21,20 @@ exports.postAd = (req, res, next) => {
 }
 
 exports.getAllAds = (req, res, next) => {
-    // db.execute('SELECT * from ads').then(([rows, fieldData]) => {
-    //     res.status(200).json(rows);
-    // })
-    res.send("This is a testing page");
+    db.execute('SELECT * from ads').then(([rows, fieldData]) => {
+        if(rows.length > 0)
+        {
+            res.status(200).json(rows);
+        }
+        else
+        {
+            res.status(500).json({
+                message: "There are no cars Listed yet",
+                
+            })
+        }
+        
+    })
+    //res.send("This is a testing page");
     
 }

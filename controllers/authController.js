@@ -15,11 +15,12 @@ exports.postAuth = (req, res, next) => {
     var password = req.body.password;
     var gender = req.body.gender;
     var age = req.body.age;
+    var fcmToken = req.body.fcmToken;
 
     const salt = genSaltSync(10);
     password = hashSync(req.body.password, salt);
 
-    db.execute('INSERT INTO users(first_name, last_name, email_address, password, gender, age) VALUES (?, ?, ?, ?, ?, ?)', [first_name, last_name, email_address, password, gender, age]).then(([rows, fieldData]) => {
+    db.execute('INSERT INTO users(first_name, last_name, email_address, password, gender, age, fcmToken) VALUES (?, ?, ?, ?, ?, ?, ?)', [first_name, last_name, email_address, password, gender, age, fcmToken]).then(([rows, fieldData]) => {
         res.status(200).json({
             data : rows,
             moreData : fieldData
@@ -50,7 +51,7 @@ exports.login = (req, res, next) => {
                 res.status(200).json({
                     message : 'User logged in Successfully',
                     success: true,
-                    name: rows[0].first_name,
+                    data: rows[0],
                     
                 })
             }

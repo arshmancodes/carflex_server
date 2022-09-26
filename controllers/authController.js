@@ -21,7 +21,7 @@ exports.postAuth = (req, res, next) => {
     db.execute("SELECT * FROM users where email_address =?", [email_address]).then(([rows, fieldData]) => {
         if(rows.length > 0)
         {
-            res.json({
+            res.status(500).json({
                 success: false,
                 message: "Email Already Exists",
             });

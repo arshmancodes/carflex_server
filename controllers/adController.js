@@ -30,11 +30,11 @@ exports.getAllAds = (req, res, next) => {
         {
             res.status(500).json({
                 message: "There are no cars Listed yet",
-                
+
             })
         }
         
     })
-    //res.send("This is a testing page");
+    
     
 }

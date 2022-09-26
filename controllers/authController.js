@@ -55,6 +55,13 @@ exports.login = (req, res, next) => {
                     
                 })
             }
+            else
+            {
+                res.status(500).json({
+                    success: false,
+                    message: "User Login failed!, Invalid Username or Password",
+                })
+            }
         }
     })
 }

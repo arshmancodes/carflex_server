@@ -18,12 +18,32 @@ exports.postAuth = (req, res, next) => {
     const salt = genSaltSync(10);
     password = hashSync(req.body.password, salt);
 
-    db.execute('INSERT INTO users(name, email_address, password, gender, fcmToken) VALUES (?, ?, ?, ?, ?)', [name, email_address, password, gender, fcmToken]).then(([rows, fieldData]) => {
-        res.status(200).json({
-            data : rows,
-            moreData : fieldData
-        })
+    db.execute("SELECT * FROM users where email_address =?", [email_address]).then(([rows, fieldData]) => {
+        if(rows.length > 0)
+        {
+            res.json({
+                success: false,
+                message: "Email Already Exists",
+            });
+        }
+        else
+        {
+            db.execute('INSERT INTO users(name, email_address, password, gender, fcmToken) VALUES (?, ?, ?, ?, ?)', [name, email_address, password, gender, fcmToken]).then(([rows, fieldData]) => {
+                res.status(200).json({
+                    success: true,
+                    data : rows,
+                    
+                })
+            }).catch(err => {
+                res.status(500).json({
+                    success : false,
+                    message: err,
+                })
+            })
+        }
     })
+
+    
 
 }
 

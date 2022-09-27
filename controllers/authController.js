@@ -27,7 +27,7 @@ exports.postAuth = (req, res, next) => {
         }
         else
         {
-            db.execute('INSERT INTO users(name, email_address, password, fcmToken) VALUES (?, ?, ?, ?)', [name, email_address, password, fcmToken]).then(([rows, fieldData]) => {
+            db.execute('INSERT INTO users(name, email_address, password, fcmToken, isPremium, isVerified, points) VALUES (?, ?, ?, ?, ?, ?, ?)', [name, email_address, password, fcmToken, req.body.isPremium, req.body.isVerified, req.body.points]).then(([rows, fieldData]) => {
                 res.status(200).json({
                     success: true,
                     data : rows,

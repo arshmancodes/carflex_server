@@ -12,7 +12,6 @@ exports.postAuth = (req, res, next) => {
     var name = req.body.name;
     var email_address = req.body.email_address;
     var password = req.body.password;
-    var gender = req.body.gender;
     var fcmToken = req.body.fcmToken;
 
     const salt = genSaltSync(10);
@@ -28,7 +27,7 @@ exports.postAuth = (req, res, next) => {
         }
         else
         {
-            db.execute('INSERT INTO users(name, email_address, password, gender, fcmToken) VALUES (?, ?, ?, ?, ?)', [name, email_address, password, gender, fcmToken]).then(([rows, fieldData]) => {
+            db.execute('INSERT INTO users(name, email_address, password, fcmToken) VALUES (?, ?, ?, ?)', [name, email_address, password, fcmToken]).then(([rows, fieldData]) => {
                 res.status(200).json({
                     success: true,
                     data : rows,
